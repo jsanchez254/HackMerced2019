@@ -7,22 +7,6 @@ import GoogleMapReact from 'google-map-react';
  
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-// export class CurrentLocation extends React.Component {
-
-//   [...]
-  
-//   }
-//   export default CurrentLocation;
-  
-//   CurrentLocation.defaultProps = {
-//     zoom: 14,
-//     initialCenter: {
-//       lat: -1.2884,
-//       lng: 36.8233
-//     },
-//     centerAroundCurrentLocation: false,
-//     visible: true
-//   };
  
 class SimpleMap extends Component {
   static defaultProps = {
@@ -32,8 +16,6 @@ class SimpleMap extends Component {
     },
     zoom: 11
   };
-
-
 
   test =() =>{
     console.log("We got something")

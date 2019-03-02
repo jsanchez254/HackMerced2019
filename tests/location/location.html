@@ -45,6 +45,7 @@
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(pos);
+            console.log(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -63,7 +64,7 @@
       }
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKg5413ZLcyIicH6ybYlh_fFHSf1BnqQQ&callback=initMap">
     </script>
   </body>
 </html>
