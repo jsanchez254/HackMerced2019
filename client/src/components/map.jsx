@@ -4,6 +4,9 @@ import axios from "axios";
 
 //IMPORT COMPONENTS
 import RenderMapDots from "./renderMapDots";
+
+//IMPORT JS
+import {renderDots} from "../assets/js/editMapDots";
  
 class SimpleMap extends Component {
   state = { 
@@ -13,7 +16,8 @@ class SimpleMap extends Component {
     latitude: [],
     longitud : [],
     date: [],
-    message: []
+    message: [],
+    msgID: []
   };
 
 // function called before compent is mounted
@@ -35,8 +39,8 @@ class SimpleMap extends Component {
     axios.get("http://localhost:5000/getMessages")
         .then(res =>{
             const message = res.data;
-  
             this.setState({message});
+            console.log(message);
     })
     axios.get("http://localhost:5000/getLAT")
     .then(res =>{
@@ -53,24 +57,33 @@ class SimpleMap extends Component {
         const date = res.data;
         this.setState({date});
     })
+    axios.get("http://localhost:5000/getMSGID")
+    .then(res =>{
+        const msgID = res.data;
+        this.setState({msgID});
+    })
   }
 
   render() {
+    const Markers = 
+    this.state.message.map((m, index) => 
+      <RenderMapDots
+        key={index}
+        lat={this.state.latitude[index]}
+        lng={this.state.longitud[index]}
+        text = {this.state.latitude[index]}
+      />
+    );
     return (
       // Important! Always set the container height explicitly
     <React.Fragment>
         <div style={{ height: '100vh', width: '100%' }}>
-            <GoogleMapReact
+            <GoogleMapReact 
               bootstrapURLKeys={{ key: "AIzaSyDKg5413ZLcyIicH6ybYlh_fFHSf1BnqQQ" }}
               defaultCenter={this.state.userLocation}
               defaultZoom={this.state.zoom}
             >
-              
-              <RenderMapDots
-                  lat={this.state.userLocation.lat}
-                  lng={this.state.userLocation.lng}
-                  text={this.state.userLocation.lat}
-              />
+            {Markers}
             </GoogleMapReact>
 
         </div>

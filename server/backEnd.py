@@ -13,7 +13,10 @@ def getMessages():
         cursor = connect.cursor()
         cursor.execute("SELECT m_message FROM Messages")
         messages = cursor.fetchall()
-        messages = json.dumps(messages)
+        msgList = []
+        for i in range(len(messages)):
+                msgList.append(messages[i][0])
+        messages = json.dumps(msgList)
         return messages
 
 #GET LAT
@@ -23,7 +26,10 @@ def getLAT():
         cursor = connect.cursor()
         cursor.execute("SELECT m_latitude FROM Messages")
         messages = cursor.fetchall()
-        messages = json.dumps(messages)
+        msgList = []
+        for i in range(len(messages)):
+                msgList.append(messages[i][0])
+        messages = json.dumps(msgList)
         return messages
         
 #GET LNG
@@ -33,7 +39,10 @@ def getLNG():
         cursor = connect.cursor()
         cursor.execute("SELECT m_longitude FROM Messages")
         messages = cursor.fetchall()
-        messages = json.dumps(messages)
+        msgList = []
+        for i in range(len(messages)):
+                msgList.append(messages[i][0])
+        messages = json.dumps(msgList)
         return messages
 
 #GET DATE
@@ -43,9 +52,24 @@ def getDATE():
         cursor = connect.cursor()
         cursor.execute("SELECT m_longitude FROM Messages")
         messages = cursor.fetchall()
-        messages = json.dumps(messages)
+        msgList = []
+        for i in range(len(messages)):
+                msgList.append(messages[i][0])
+        messages = json.dumps(msgList)
         return messages
 
+#GET MSGID
+@app.route("/getMSGID")
+def getMSGID():
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()
+        cursor.execute("SELECT m_messageID FROM Messages")
+        messages = cursor.fetchall()
+        msgList = []
+        for i in range(len(messages)):
+                msgList.append(messages[i][0])
+        messages = json.dumps(messages)
+        return messages
 
 #POST COMMENT
 @app.route("/postComment" ,  methods = ["GET", "POST"])
