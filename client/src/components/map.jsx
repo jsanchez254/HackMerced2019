@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
  
-const AnyReactComponent = ({ text }) => <h1 className = "title">hhhh</h1>;
- 
+const AnyReactComponent = ({ text }) => 
+(
+  <React.Fragment>
+    <h1 className = "title">hhhh</h1>
+    <h1>popopopopo</h1>
+    </React.Fragment>
+);
+
 class SimpleMap extends Component {
   state = { 
     userLocation: { lat: 37.3638376, lng: -120.4288427 }, 
@@ -10,7 +16,8 @@ class SimpleMap extends Component {
     zoom : 15
   };
 
-
+// function called before compent is mounted
+// allows data to be stored in variables before render
   componentDidMount =(props) => {
     navigator.geolocation.getCurrentPosition(
       position => {
