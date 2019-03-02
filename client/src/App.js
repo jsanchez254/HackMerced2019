@@ -8,6 +8,11 @@ import {
 //IMPORT COMPONENTS
 import NavBar from "./components/navBar";
 import Map from "./components/map";
+import Messenger from "./components/messenger";
+import PostQuestion from "./components/postComment";
+
+//IMPORT CSS
+import "./assets/css/container.css";
 
 //IMPORT SEMANTIC UI
 import {Container} from "semantic-ui-react";
@@ -20,9 +25,9 @@ class App extends Component {
             <div>
               <Route path = "/" component = {NavBar}/>
               <Route exact path  = {['/map', '/']} component = {Map}/>
-              <Route exact path  = {['/map', '/']} component = {Map}/>
+              <Route path  = '/messenger' component = {Messenger}/>
               <Container>
-                {/* <Route path = "/postNewQuestion" component = {postNewQuestion} /> */}
+                <Route exact path  = '/post' component = {PostQuestion}/>
               </Container>
             </div>
           </Router>

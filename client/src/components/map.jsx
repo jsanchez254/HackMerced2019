@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
- 
-const AnyReactComponent = ({ text }) => 
-(
-  <React.Fragment>
-    <h1 className = "title">hhhh</h1>
-    <h1>popopopopo</h1>
-    </React.Fragment>
-);
+import axios from "axios";
 
+//IMPORT COMPONENTS
+import RenderMapDots from "./renderMapDots";
+ 
 class SimpleMap extends Component {
   state = { 
     userLocation: { lat: 37.3638376, lng: -120.4288427 }, 
     loading: true,
-    zoom : 15
+    zoom : 15,
+    latitude: [],
+    longitud : [],
+    date: [],
+    message: []
   };
 
 // function called before compent is mounted
@@ -31,6 +31,28 @@ class SimpleMap extends Component {
         this.setState({ loading: false });
       }
     );
+    //NOW LETS FETCH SOME DATA
+    axios.get("http://localhost:5000/getMessages")
+        .then(res =>{
+            const message = res.data;
+  
+            this.setState({message});
+    })
+    axios.get("http://localhost:5000/getLAT")
+    .then(res =>{
+        const latitude = res.data;
+        this.setState({latitude});
+    })
+    axios.get("http://localhost:5000/getLNG")
+    .then(res =>{
+        const longitud = res.data;
+        this.setState({longitud});
+    })
+    axios.get("http://localhost:5000/getDATE")
+    .then(res =>{
+        const date = res.data;
+        this.setState({date});
+    })
   }
 
   render() {
@@ -39,17 +61,18 @@ class SimpleMap extends Component {
     <React.Fragment>
         <div style={{ height: '100vh', width: '100%' }}>
             <GoogleMapReact
-            bootstrapURLKeys={{ key: "AIzaSyDKg5413ZLcyIicH6ybYlh_fFHSf1BnqQQ" }}
-            defaultCenter={this.state.userLocation}
-            defaultZoom={this.state.zoom}
+              bootstrapURLKeys={{ key: "AIzaSyDKg5413ZLcyIicH6ybYlh_fFHSf1BnqQQ" }}
+              defaultCenter={this.state.userLocation}
+              defaultZoom={this.state.zoom}
             >
-            {/* just for text and DOM stuff */}
-            <AnyReactComponent
-                lat={this.state.userLocation.lat}
-                lng={this.state.userLocation.lng}
-                text={this.state.userLocation.lat}
-            />
+              
+              <RenderMapDots
+                  lat={this.state.userLocation.lat}
+                  lng={this.state.userLocation.lng}
+                  text={this.state.userLocation.lat}
+              />
             </GoogleMapReact>
+
         </div>
     </React.Fragment>
     );
