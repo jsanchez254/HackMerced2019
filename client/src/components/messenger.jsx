@@ -39,16 +39,7 @@ class Messenger extends Component {
     render() { 
         return (
             <React.Fragment>
-                <h1 class="title">Current Coordinates:</h1>
                 <div class="block">
-                    <button class="button">Don't Refresh</button>
-                    <a href="" className="button is-primary">Refresh</a>
-                </div>
-                <div class="block">
-                    <div class="box">
-                        <h1 class="title">Hello</h1>
-                        <p>You've discovered our messages page.</p>
-                    </div>
                     <table class="table is-striped is-fullwidth">
                         <thead>
                             <th>Message</th>
