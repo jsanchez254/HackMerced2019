@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {Icon} from "semantic-ui-react";
 import axios from 'axios';
 
+import {popOut} from "../assets/js/editMapDots";
 
 class renderMapDots extends Component {
 
@@ -46,8 +47,8 @@ class renderMapDots extends Component {
 
         return (
             <React.Fragment>
-                <div className = "popup" onClick = {()=> this.props.clickEvent(this.props.message, this.props.msgID , this.props.date)} >
-                    <Icon size = "huge" className = "location1" name = "star"/>
+                <div className = "popup">
+                    <Icon onClick = {()=> popOut(this.props.msgID)} size = "huge" className = "location1" name = "nintendo switch"/>
                     <div className = "popuptext" id = "myPopup">
                             <h1 className = "user">User 123Demo:</h1>
                             <br/>

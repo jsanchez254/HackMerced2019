@@ -29,7 +29,7 @@
   
   /* The actual popup */
   .popup .popuptext {
-    display: block;
+    display: none;
     width: 500px;
     background-color: #555;
     color: #fff;

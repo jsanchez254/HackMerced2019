@@ -24,10 +24,10 @@ class SimpleMap extends Component {
     Markers: ""
   };
 
-  handleMapClick = (msg, msgID, date) =>{
+  // handleMapClick = (event) =>{
 
-    popOut(msg, msgID, date);
-  }
+  //   popOut(event);
+  // }
 
 // function called before compent is mounted
 // allows data to be stored in variables before render
@@ -79,7 +79,7 @@ class SimpleMap extends Component {
         const Markers = 
         this.state.message.map((m, index) => 
           <RenderMapDots
-            clickEvent = {this.handleMapClick}
+            // clickEvent = {this.handleMapClick}
             key={index}
             lat={this.state.latitude[index]}
             lng={this.state.longitud[index]}
