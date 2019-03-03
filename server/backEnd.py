@@ -50,7 +50,7 @@ def getLNG():
 def getDATE():
         connect = sql.connect("app.db")
         cursor = connect.cursor()
-        cursor.execute("SELECT m_longitude FROM Messages")
+        cursor.execute("SELECT m_date FROM Messages")
         messages = cursor.fetchall()
         msgList = []
         for i in range(len(messages)):

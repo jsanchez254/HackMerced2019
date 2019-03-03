@@ -25,9 +25,9 @@ class App extends Component {
             <div>
               <Route path = "/" component = {NavBar}/>
               <Route exact path  = {['/map', '/']} component = {Map}/>
-              <Route path  = '/messenger' component = {Messenger}/>
               <Container>
                 <Route exact path  = '/post' component = {PostQuestion}/>
+                <Route path  = '/messenger' component = {Messenger}/>
               </Container>
             </div>
           </Router>
