@@ -21,6 +21,7 @@ class SimpleMap extends Component {
     userID: [],
     testlng: -120.42929,
     testlat: 37.36384,
+    icons: [],
     Markers: ""
   };
 
@@ -72,6 +73,12 @@ class SimpleMap extends Component {
         this.setState({userID});
     })
 
+    axios.get("http://localhost:5000/getIcon")
+    .then(res =>{
+        const icons = res.data;
+        this.setState({icons});
+    })
+
     axios.get("http://localhost:5000/getMSGID")
     .then(res =>{
         const msgID = res.data;
@@ -87,6 +94,7 @@ class SimpleMap extends Component {
             message ={this.state.message[index]}
             date = {this.state.date[index]}
             msgID = {this.state.msgID[index]}
+            icon = {this.state.icons[index]}
             userID = {this.state.userID[index]}
           />
         );

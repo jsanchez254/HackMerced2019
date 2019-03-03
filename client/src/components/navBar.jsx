@@ -7,7 +7,7 @@ class navBar extends Component {
     render() { 
         return (
             <React.Fragment>
-                <nav className = "navbar is-success">
+                <nav className = "navbar is-info">
                     <div className = "navbar-end">
                         <Link  className = "navbar-item" to = "/post">
                             <Icon name='pencil alternate'  size = "large"/> <span>Post Comment</span>

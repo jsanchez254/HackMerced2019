@@ -93,8 +93,34 @@
   .replyBox{
       background-color: grey;
       padding-left: 38px;
+      height: 200px;
+      overflow: scroll;
   }
 
   #formMap{
       padding-top: 15px;
+  }
+
+  .pickIcon{
+      color: rgb(54, 148, 143);
+  }
+
+  .pickIcon:hover{
+    cursor:pointer;
+    color: rgb(27, 205, 211);
+  }
+
+  .currentIcon{
+      color: red;
+  }
+
+  .submitted{
+      font-weight: bold; 
+      font-size: 40px;
+      color: black;  
+  }
+
+  #jiji{
+      height: 100px;
+      width: 100px;
   }

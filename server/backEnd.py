@@ -42,6 +42,7 @@ def postReply():
                 print parse
                 reply = parse["replay"]
                 userID = parse["userID"]
+                print userID
                 msgID = parse["msgID"]
                 insertReply(msgID, reply, userID)
                 return "cool"
@@ -52,6 +53,19 @@ def insertReply(msgID, reply, userID):
         cursor.execute("INSERT INTO Replies (r_messageID, r_reply, m_userID) VALUES (?,?,?) ", (msgID, reply, userID))
         connect.commit()
         return "jaja"
+
+#GET ICON
+@app.route("/getIcon")
+def getIcon():
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()
+        cursor.execute("SELECT m_Icon FROM Messages")
+        messages = cursor.fetchall()
+        msgList = []
+        for i in range(len(messages)):
+                msgList.append(messages[i][0])
+        messages = json.dumps(msgList)
+        return messages
 
 #GET UserID
 @app.route("/UserID")
@@ -143,15 +157,16 @@ def postComment():
                 comment = parse["comment"]
                 date = parse["date"]
                 user = parse["user"]
+                icon = parse["iconName"]
                 print parse
-                insertComment(comment, lat, lng, date ,user)
+                insertComment(comment, lat, lng, date ,user, icon)
         return "cool"
 
-def insertComment(comment, lat, lng, date ,user):
+def insertComment(comment, lat, lng, date ,user, icon):
         connect = sql.connect("app.db")
         cursor = connect.cursor()
         cursor.execute('''INSERT INTO Messages 
-        (m_userID, m_message, m_date, m_latitude, m_longitude) VALUES(?,?,?,?,?)''', (user, comment, date, lat ,lng))
+        (m_userID, m_message, m_date, m_latitude, m_longitude, m_Icon) VALUES(?,?,?,?,?, ?)''', (user, comment, date, lat ,lng, icon))
         connect.commit()
         print "cool"
 

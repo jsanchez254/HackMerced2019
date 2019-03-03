@@ -25,6 +25,20 @@ class renderMapDots extends Component {
         })
     }
 
+    fetchRepliesAgain = () => {
+        const msgID = {
+            realMsgID: this.props.msgID
+        }
+        setTimeout(() =>
+            axios.post("http://localhost:5000/getReplies" , {msgID})
+            .then(res =>{
+                const replies = res.data;
+                this.setState({replies}); 
+                console.log("wooorks??");
+                console.log("HERE ", res.data);
+            }), 100)
+    }
+
      //HANDLE FORM
     handleChange = (event) => {
         this.setState({[event.target.name] : event.target.value});
@@ -33,6 +47,7 @@ class renderMapDots extends Component {
 
     handleSubmit = (event) =>{
         event.preventDefault();
+        this.fetchRepliesAgain();
         const rep ={
             msgID: this.props.msgID,
             replay: this.state.reply,
@@ -48,20 +63,29 @@ class renderMapDots extends Component {
         return (
             <React.Fragment>
                 <div className = "popup">
-                    <Icon onClick = {()=> popOut(this.props.msgID)} size = "huge" className = "location1" name = "nintendo switch"/>
+                    <Icon onClick = {()=> popOut(this.props.msgID)} size = "huge" className = "location1" name = {this.props.icon}/>
                     <div className = "popuptext" id = "myPopup">
-                            <h1 className = "user">User 123Demo:</h1>
+                            
+                            <div className = "columns">
+                                <div className = "column is-6">
+                                    <h1 className = "user">User 123Demo</h1>
+                                </div>
+                                <div className = "column is-6">
+                                    <h1 className = "user"> {this.props.date} </h1>
+                                </div>
+                            </div>
+
                             <br/>
                             <div className = "field">
                                     <span id = "userMessage">{this.props.message}</span>
                             </div>
                             <div className = "replyBox">
                             <br/>
-                                {this.state.replies.map((msg, index) => 
+                                {this.state.replies.slice(0).reverse().map((msg, index) => 
                                         <div className = "replies">UserTEST : {msg}</div>
                                 )}
                             </div>
-                        <form id = "formMap" onSubmit  = {this.handleSubmit}>  
+                        <form id = "formMap">  
                                 <div className = "columns">  
                                     <div className = "column is-1"></div>   
                                         <div className = "column is-10">           
@@ -76,7 +100,7 @@ class renderMapDots extends Component {
                                                     <nav className="level">
                                                     <div className="level-left">
                                                         <div className="level-item">
-                                                        <button type = "submit" value = "Submit" className="button is-success">REPLY</button>
+                                                        <button onClick  = {this.handleSubmit}  type = "submit" value = "Submit" className="button is-success">REPLY</button>
                                                         </div>
                                                     </div>
                                                     </nav>
