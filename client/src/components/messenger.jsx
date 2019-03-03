@@ -14,31 +14,25 @@ class Messenger extends Component {
       componentDidMount(){
         axios.get("http://localhost:5000/getMessages")
         .then(res =>{
-            console.log("huh");
+            // console.log("huh");
             const msgContent = res.data;
             this.setState({msgContent});
-            console.log(res.data);
+            // console.log(res.data);
         })
         axios.get("http://localhost:5000/getDATE")
         .then(res =>{
-            // console.log("huh");
             const date = res.data;
             this.setState({date});
-            console.log(res.data);
         })
         axios.get("http://localhost:5000/getLAT")
         .then(res =>{
-            // console.log("huh");
             const lat = res.data;
             this.setState({lat});
-            console.log(res.data);
         })
         axios.get("http://localhost:5000/getLNG")
         .then(res =>{
-            // console.log("huh");
             const long = res.data;
             this.setState({long});
-            console.log(res.data);
         })
       }
 
@@ -46,13 +40,6 @@ class Messenger extends Component {
         return (
             <React.Fragment>
                 <h1 class="title">Current Coordinates:</h1>
-                {/* <h2>Same size?</h2> */}
-                <ul>
-                    {/* {this.state.msgContent.map((msg, index) => 
-                        <li>{msg[index]}</li>
-                        )
-                    } */}
-                </ul>
                 <div class="block">
                     <button class="button">Don't Refresh</button>
                     <a href="" className="button is-primary">Refresh</a>
@@ -70,28 +57,19 @@ class Messenger extends Component {
                             <th>Long</th>
                         </thead>
                         <tbody>
-                            {/* <tr> */}
                             {this.state.msgContent.map((msg, index) => 
                                 <tr>
-                                {msg}
-                                <td>{this.state.date[index]}</td>
-                                <td>{this.state.lat[index]}</td>
-                                <td>{this.state.long[index]}</td>
+                                    <td>{this.state.msgContent[index]}</td>
+                                    <td>{this.state.date[index]}</td>
+                                    <td>{this.state.lat[index]}</td>
+                                    <td>{this.state.long[index]}</td>
                                 </tr>
-                                )
-                            }
-                            
-                                {/* <td>Cool</td>
-                                <td>Cool2</td>
-                                <td>Cool3</td>
-                                <td>Cool4</td> */}
-                            {/* </tr> */}
+                            )}
                         </tbody>
                     </table>
                 </div>
-
             </React.Fragment>
-          );
+        );
     }
 }
  
