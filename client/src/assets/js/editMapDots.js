@@ -1,9 +1,19 @@
-var parent = document.getElementsByClassName("mapBox");
-console.log(parent);
-export function renderDots(message, msgID, date){
+export function popOut(msg, msgID, date){
+    // var popup = document.getElementById("myPopup");
+    // if(popup.style.display == "block"){
+    //     popup.style.display = "none";
+    // }
+    // else{
+    //     popup.style.display = "block";
+    // }
+    // popup.style.display = "block";
+    // popup.classList.toggle("show");
+
+    console.log(msg);
     console.log(msgID);
-    console.log(message);
-    console.log("what ", date);
-    // document.getElementById("change").innerHTML = "caca";
-    // parent[0].innerHTML = ";-;";
+    console.log(date);
+
+    
+
+
 }

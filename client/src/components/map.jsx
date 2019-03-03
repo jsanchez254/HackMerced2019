@@ -6,7 +6,7 @@ import axios from "axios";
 import RenderMapDots from "./renderMapDots";
 
 //IMPORT JS
-import {renderDots} from "../assets/js/editMapDots";
+import {popOut} from "../assets/js/editMapDots";
  
 class SimpleMap extends Component {
   state = { 
@@ -22,6 +22,10 @@ class SimpleMap extends Component {
     testlat: 37.36384,
     Markers: ""
   };
+
+  handleMapClick = (msg, msgID, date) =>{
+    popOut(msg, msgID, date);
+  }
 
 // function called before compent is mounted
 // allows data to be stored in variables before render
@@ -66,6 +70,7 @@ class SimpleMap extends Component {
         const Markers = 
         this.state.message.map((m, index) => 
           <RenderMapDots
+            clickEvent = {this.handleMapClick}
             key={index}
             lat={this.state.latitude[index]}
             lng={this.state.longitud[index]}
