@@ -6,6 +6,33 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/getUserReplies" ,  methods = ["GET", "POST"])
+def getUserReplies():
+        if (request.method == "POST"):
+                store = request.data
+                store = json.loads(store)
+                print store
+                parse = store["msgID"]
+                msgID = parse["realMsgID"]
+                return getUsers(msgID)
+
+def getUsers(msgID):
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()
+        cursor.execute("SELECT m_userID FROM Replies WHERE r_messageID = ?; ", (msgID,))
+        store = cursor.fetchall()
+        
+        cursor.execute("SELECT COUNT(m_userID) FROM Replies WHERE r_messageID = ?; ", (msgID,))
+        count = cursor.fetchall()
+
+        userNames = []
+        for i in range(count[0][0]):
+               cursor.execute("SELECT u_userName FROM Users WHERE u_userID = ?; ", (store[i][0],))
+               temp = cursor.fetchall() 
+               userNames.append(temp[0][0])
+        userNames = json.dumps(userNames)
+        print "UserNames ", userNames
+        return userNames
 
 #GET USER NAME
 @app.route("/getUserName" ,  methods = ["GET", "POST"])
@@ -111,13 +138,24 @@ def postReply():
                 store = request.data
                 store = json.loads(store)
                 parse = store["rep"]
-                print parse
+                print "HEEEEEEEEEEEEEEEEEEERE" ,parse
                 reply = parse["replay"]
                 userID = parse["userID"]
-                print userID
+                # print userID
                 msgID = parse["msgID"]
+                print userID
+                userID = getUserID(userID)
+                print "ID HEREEEgrgergrg ", userID
                 insertReply(msgID, reply, userID)
                 return "cool"
+
+def getUserID(user):
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()  
+        global userName
+        cursor.execute("SELECT u_userID FROM Users WHERE u_userName = ? ", (user,))
+        store = cursor.fetchall()
+        return store[0][0]
 
 def insertReply(msgID, reply, userID):
         connect  = sql.connect("app.db")

@@ -41,3 +41,9 @@ INSERT INTO Messages(m_userID, m_message, m_date, m_latitude, m_longitude, m_ico
 INSERT INTO Messages(m_userID, m_message, m_date, m_latitude, m_longitude, m_icon) VALUES (2, "Fierro compas!" , "03-03-2019", 19.4326, -99.1332, "thumbs up" );
 INSERT INTO Messages(m_userID, m_message, m_date, m_latitude, m_longitude, m_icon) VALUES (2, "Crikey means ‘gee whiz, wow!" , "03-03-2019", -37.8136, 144.9631, "heart" );
 INSERT INTO Messages(m_userID, m_message, m_date, m_latitude, m_longitude, m_icon) VALUES (2, "ITS FREEZING HERE!" , "03-03-2019", -82.8628, 135.0000, "thumbs down" );
+
+
+INSERT INTO Users(u_userName, u_password) VALUES ("kechuArceus", "test");
+INSERT INTO Users(u_userName, u_password) VALUES ("JIJI", "test2");
+
+

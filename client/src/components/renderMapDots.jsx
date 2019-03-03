@@ -11,7 +11,9 @@ class renderMapDots extends Component {
     state = {
         reply : "",
         replies: [],
-        userName : ""
+        userName : "",
+        userName1 : "",
+        usersReply : []
     }
 
     componentDidMount (){
@@ -24,14 +26,29 @@ class renderMapDots extends Component {
             this.setState({replies}); 
             console.log("HERE ", res.data);
         })
+
+        axios.post("http://localhost:5000/getUserReplies" , {msgID})
+        .then(res =>{
+            const usersReply = res.data;
+            this.setState({usersReply}); 
+            console.log("HERE ", res.data);
+        })
+
         const userID = {
             user: this.props.userID
         }
 
-        axios.post("http://localhost:5000/getUserName" , {userID})
+        axios.get("http://localhost:5000/auth")
         .then(res =>{
             const userName = res.data;
             this.setState({userName}); 
+            console.log("HERE ", res.data);
+        })
+
+        axios.post("http://localhost:5000/getUserName", {userID})
+        .then(res =>{
+            const userName1 = res.data;
+            this.setState({userName1}); 
             console.log("HERE ", res.data);
         })
     }
@@ -48,6 +65,14 @@ class renderMapDots extends Component {
                 console.log("wooorks??");
                 console.log("HERE ", res.data);
             }), 100)
+
+        setTimeout(() =>
+            axios.post("http://localhost:5000/getUserReplies" , {msgID})
+            .then(res =>{
+                const usersReply = res.data;
+                this.setState({usersReply}); 
+                console.log("HERE ", res.data);
+            }), 100);
     }
 
      //HANDLE FORM
@@ -62,7 +87,7 @@ class renderMapDots extends Component {
         const rep ={
             msgID: this.props.msgID,
             replay: this.state.reply,
-            userID : this.props.userID
+            userID : this.state.userName
         }
         axios.post("http://localhost:5000/postReply", {rep})
         .then(res => {
@@ -79,7 +104,7 @@ class renderMapDots extends Component {
                             
                             <div className = "columns">
                                 <div className = "column is-6">
-                                    <h1 className = "user22">{this.state.userName}</h1>
+                                    <h1 className = "user22">{this.state.userName1}</h1>
                                 </div>
                                 <div className = "column is-6">
                                     <h1 className = "user22"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -95,7 +120,7 @@ class renderMapDots extends Component {
                             <div className = "replyBox">
                             <br/>
                                 {this.state.replies.slice(0).reverse().map((msg, index) => 
-                                        <div className = "replies">UserTEST : {msg}</div>
+                                        <div className = "replies">{this.state.usersReply[(this.state.replies.length) - index - 1]} : {msg}</div>
                                 )}
                             </div>
                         <form id = "formMap">  
