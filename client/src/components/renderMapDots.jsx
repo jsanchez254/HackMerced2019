@@ -14,10 +14,6 @@ class renderMapDots extends Component {
         return (
             <React.Fragment>
                 <h1 className = "title"><Icon className = "location1" name = "star"/></h1>
-                <div>
-                    <p className = "mapBox"></p>
-                </div>
-                {this.handleDots()}
             </React.Fragment>
           );
     }
