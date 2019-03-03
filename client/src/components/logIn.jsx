@@ -3,16 +3,43 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import JIJI from "../assets/img/jijiS.gif";
+import axios from 'axios';
 
 class LogIn extends Component {
-    state = {  }
+    state = {
+        userName : "",
+        password: "",
+        exists: "nope"
+    }
+
+    handlePass = () =>{
+        console.log(typeof this.state.exists);
+        if(this.state.exists == true){
+            return (<Redirect to = "/post"/>);
+        }
+        else if(this.state.exists == false && this.state.exists != "nope"){
+            return (<span className = "wrong">Wrong Password or User Name...try again</span>)
+        }
+        return;
+    }
 
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value});
+        console.log(event.target.value);
     }
 
     handleSubmit = (event) =>{
         event.preventDefault();
+        const userInfo = {
+            userName: this.state.userName,
+            password: this.state.password
+        }
+        axios.post("http://localhost:5000/auth", {userInfo})
+        .then (res => {
+            console.log(res.data);
+            const exists = res.data;
+            this.setState({exists});
+        })
     }
 
     render() { 
@@ -30,10 +57,10 @@ class LogIn extends Component {
                                             </div>
                                             
                                             <div className = "field ">
-                                                <label className = "label"> Email </label>                                                    
-                                                <input name = "userName" className = "input" type = "email"
+                                                <label className = "label"> User Name </label>                                                    
+                                                <input name = "userName" className = "input"
                                                 onChange = {this.handleChange
-                                                } placeholder = "Enter Email"/>                                                                                    
+                                                } placeholder = "Enter User Name"/>                                                                                    
                                             </div>
                                             
                                             <div className = "field ">
@@ -46,11 +73,11 @@ class LogIn extends Component {
                                             <div className = "field">
                                                 <div className = "columns">
                                                         <div className = "column is-5">
-                                                            <Link to = "/post"> 
-                                                                <button  type = "submit" value = "Submit" className = "button is-success">
+                                                            {/* <Link to = "/post">  */}
+                                                                <button type = "submit" value = "Submit" className = "button is-success">
                                                                     Login
                                                                 </button>
-                                                            </Link>  
+                                                            {/* </Link>   */}
                                                         </div>
                                                         <div className = "column is-3">
                                                             <Link to = "/createAccount">
@@ -58,6 +85,7 @@ class LogIn extends Component {
                                                             </Link>
                                                         </div>
                                                 </div>
+                                                {this.handlePass()}
                                             </div>
 
                                              <div>

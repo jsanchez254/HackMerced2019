@@ -20,7 +20,8 @@ class postComment extends Component {
         date: "",
         user: 1,
         IconName: "nintendo switch",
-        submitted: false
+        submitted: false,
+        userName : ""
     };
 
     submitted (){
@@ -46,7 +47,7 @@ class postComment extends Component {
             comment: this.state.comment,
             lat: this.state.userLocation.lat,
             lng: this.state.userLocation.lng,
-            user: this.state.user,
+            user: this.state.userName,
             date: getDate(),
             iconName: this.state.IconName
         }
@@ -77,6 +78,12 @@ class postComment extends Component {
             this.setState({ loading: false });
           }
         );
+        axios.get("http://localhost:5000/auth")
+        .then(res =>{
+            console.log("coolaid ",  res.data);
+            const userName = res.data;
+            this.setState({userName});
+        })
     }
     render() { 
         return (

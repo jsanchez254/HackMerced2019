@@ -6,6 +6,81 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+
+#GET USER NAME
+@app.route("/getUserName" ,  methods = ["GET", "POST"])
+def getUserName():
+        if (request.method == "POST"):
+                store = request.data
+                parse = json.loads(store)
+                userID = parse["userID"]
+                user = userID["user"]
+
+                return getUserName(user)
+
+def getUserName(user):
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()
+        cursor.execute("SELECT u_userName FROM Users WHERE u_userID = ?; ", (user,))
+        store = cursor.fetchall()
+        return store[0][0]
+
+
+userName1 = ""
+
+#CREATE ACCOUNT
+@app.route("/auth" ,  methods = ["GET", "POST"])
+def auth():
+        if (request.method == "POST"):
+                store = request.data
+                parse = json.loads(store)
+                parse = parse["userInfo"]
+                userName = parse["userName"]
+                password = parse["password"]
+
+                return checkIfExists(userName, password)
+        return userName1
+
+def checkIfExists(userName, password):
+        connect = sql.connect("app.db")
+        print userName
+        print password
+        cursor = connect.cursor()
+        cursor.execute("SELECT u_userName FROM Users WHERE u_userName = ? AND u_password = ?; ", (userName, password))
+        store = cursor.fetchall()
+        print store
+        try:
+           global userName1
+           userName1 = store[0][0]
+        except IndexError:
+           return "false"
+
+        return "true"
+
+#CREATE ACCOUNT
+@app.route("/createAccount" ,  methods = ["GET", "POST"])
+def createAccount():
+        if (request.method == "POST"):
+                store = request.data
+                parse = json.loads(store)
+                parse = parse["createAccount"]
+                userName = parse["userName"]
+                password = parse["password"]
+
+                print userName
+                insertAccount(userName, password)
+
+                return "cool"
+
+def insertAccount(userName, password):
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()
+
+        cursor.execute("INSERT INTO Users (u_userName, u_password) VALUES (?,?)", (userName, password))
+        connect.commit()
+        return "stored"
+
+
 #GET REPLIES
 @app.route("/getReplies" ,  methods = ["GET", "POST"])
 def getReplies():
@@ -15,9 +90,6 @@ def getReplies():
                 print store
                 parse = store["msgID"]
                 msgID = parse["realMsgID"]
-
-
-
                 return getReplies1(msgID)
                 
 
@@ -159,8 +231,17 @@ def postComment():
                 user = parse["user"]
                 icon = parse["iconName"]
                 print parse
+                user = getUserID (user)
                 insertComment(comment, lat, lng, date ,user, icon)
         return "cool"
+
+def getUserID(user):
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()  
+
+        cursor.execute("SELECT u_userID FROM Users WHERE u_userName = ? ", (user,))
+        store = cursor.fetchall()
+        return store[0][0]
 
 def insertComment(comment, lat, lng, date ,user, icon):
         connect = sql.connect("app.db")

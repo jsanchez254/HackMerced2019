@@ -10,7 +10,8 @@ class renderMapDots extends Component {
 
     state = {
         reply : "",
-        replies: []
+        replies: [],
+        userName : ""
     }
 
     componentDidMount (){
@@ -21,6 +22,16 @@ class renderMapDots extends Component {
         .then(res =>{
             const replies = res.data;
             this.setState({replies}); 
+            console.log("HERE ", res.data);
+        })
+        const userID = {
+            user: this.props.userID
+        }
+
+        axios.post("http://localhost:5000/getUserName" , {userID})
+        .then(res =>{
+            const userName = res.data;
+            this.setState({userName}); 
             console.log("HERE ", res.data);
         })
     }
@@ -68,10 +79,12 @@ class renderMapDots extends Component {
                             
                             <div className = "columns">
                                 <div className = "column is-6">
-                                    <h1 className = "user">User 123Demo</h1>
+                                    <h1 className = "user22">{this.state.userName}</h1>
                                 </div>
                                 <div className = "column is-6">
-                                    <h1 className = "user"> {this.props.date} </h1>
+                                    <h1 className = "user22"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    {this.props.date} </h1>
                                 </div>
                             </div>
 
