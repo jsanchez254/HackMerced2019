@@ -50,7 +50,7 @@ def getLNG():
 def getDATE():
         connect = sql.connect("app.db")
         cursor = connect.cursor()
-        cursor.execute("SELECT m_longitude FROM Messages")
+        cursor.execute("SELECT m_date FROM Messages")
         messages = cursor.fetchall()
         msgList = []
         for i in range(len(messages)):
@@ -68,7 +68,7 @@ def getMSGID():
         msgList = []
         for i in range(len(messages)):
                 msgList.append(messages[i][0])
-        messages = json.dumps(messages)
+        messages = json.dumps(msgList)
         return messages
 
 #POST COMMENT
@@ -91,7 +91,7 @@ def insertComment(comment, lat, lng, date ,user):
         connect = sql.connect("app.db")
         cursor = connect.cursor()
         cursor.execute('''INSERT INTO Messages 
-        (m_userID, m_message, m_date, m_latitude, m_longitude) VALUES(?,?,?,?,?)''', (user, comment, date, lng ,lat))
+        (m_userID, m_message, m_date, m_latitude, m_longitude) VALUES(?,?,?,?,?)''', (user, comment, date, lat ,lng))
         connect.commit()
         print "cool"
 
