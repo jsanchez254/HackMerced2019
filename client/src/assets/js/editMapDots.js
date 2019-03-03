@@ -13,7 +13,4 @@ export function popOut(msg, msgID, date){
     console.log(msgID);
     console.log(date);
 
-    
-
-
 }

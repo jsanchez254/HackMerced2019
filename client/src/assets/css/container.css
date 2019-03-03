@@ -33,7 +33,6 @@
     width: 500px;
     background-color: #555;
     color: #fff;
-    text-align: center;
     border-radius: 6px;
     padding: 8px 0;
     position: absolute;
@@ -76,10 +75,26 @@
       color: greenyellow;
       font-weight: bold;
       font-size: 24px;
+      padding-left: 15px;
   }
 
   #userMessage{
       color: white;
       font-size: 19px;
       font-weight: bold;
+      padding-left: 15px;
+  }
+
+  .replies{
+      padding-bottom: 15px;
+      font-size: 15px;
+  }
+
+  .replyBox{
+      background-color: grey;
+      padding-left: 38px;
+  }
+
+  #formMap{
+      padding-top: 15px;
   }

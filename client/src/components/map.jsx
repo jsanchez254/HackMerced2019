@@ -18,12 +18,14 @@ class SimpleMap extends Component {
     date: [],
     message: [],
     msgID: [],
+    userID: [],
     testlng: -120.42929,
     testlat: 37.36384,
     Markers: ""
   };
 
   handleMapClick = (msg, msgID, date) =>{
+
     popOut(msg, msgID, date);
   }
 
@@ -63,6 +65,13 @@ class SimpleMap extends Component {
         const date = res.data;
         this.setState({date});
     })
+
+    axios.get("http://localhost:5000/UserID")
+    .then(res =>{
+        const userID = res.data;
+        this.setState({userID});
+    })
+
     axios.get("http://localhost:5000/getMSGID")
     .then(res =>{
         const msgID = res.data;
@@ -78,6 +87,7 @@ class SimpleMap extends Component {
             message ={this.state.message[index]}
             date = {this.state.date[index]}
             msgID = {this.state.msgID[index]}
+            userID = {this.state.userID[index]}
           />
         );
         this.setState({Markers})

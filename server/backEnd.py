@@ -6,6 +6,66 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+#GET REPLIES
+@app.route("/getReplies" ,  methods = ["GET", "POST"])
+def getReplies():
+        if (request.method == "POST"):
+                store = request.data
+                store = json.loads(store)
+                print store
+                parse = store["msgID"]
+                msgID = parse["realMsgID"]
+
+
+
+                return getReplies1(msgID)
+                
+
+def getReplies1(msgID):
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()
+        cursor.execute("SELECT r_reply FROM replies WHERE r_messageID = ? ", (msgID,))
+        store = cursor.fetchall()
+        replies = []
+        for i in range(len(store)):
+                replies.append(store[i][0])
+        replies = json.dumps(replies)
+        return replies
+
+#POST REPLY
+@app.route("/postReply" ,  methods = ["GET", "POST"])
+def postReply():
+        if (request.method == "POST"):
+                store = request.data
+                store = json.loads(store)
+                parse = store["rep"]
+                print parse
+                reply = parse["replay"]
+                userID = parse["userID"]
+                msgID = parse["msgID"]
+                insertReply(msgID, reply, userID)
+                return "cool"
+
+def insertReply(msgID, reply, userID):
+        connect  = sql.connect("app.db")
+        cursor = connect.cursor()
+        cursor.execute("INSERT INTO Replies (r_messageID, r_reply, m_userID) VALUES (?,?,?) ", (msgID, reply, userID))
+        connect.commit()
+        return "jaja"
+
+#GET UserID
+@app.route("/UserID")
+def UserID():
+        connect = sql.connect("app.db")
+        cursor = connect.cursor()
+        cursor.execute("SELECT m_userID FROM Messages")
+        messages = cursor.fetchall()
+        msgList = []
+        for i in range(len(messages)):
+                msgList.append(messages[i][0])
+        messages = json.dumps(msgList)
+        return messages
+
 #GET MESSAGES
 @app.route("/getMessages")
 def getMessages():
