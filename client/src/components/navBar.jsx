@@ -18,6 +18,9 @@ class navBar extends Component {
                         <Link  className = "navbar-item" to = "/messenger">
                             <Icon name='comment outline'  size = "large"/> <span>Messages</span>
                         </Link>
+                        <Link  className = "navbar-item" to = "/">
+                            <Icon name='sign out alternate'  size = "large"/> <span>Sign Out</span>
+                        </Link>
                     </div>
                 </nav>
             </React.Fragment>

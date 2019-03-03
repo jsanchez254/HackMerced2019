@@ -7,14 +7,11 @@ import { Icon } from 'semantic-ui-react'
 
 //IMPORT AXIOS
 import axios from "axios";
-
 import JIJI from "../assets/img/jijiS.gif";
 
 class createAccount extends Component {
     state = { 
      }
-
-
      handleChange = (event) =>{
         this.setState({[event.target.name]: event.target.value});
      }
@@ -37,7 +34,7 @@ class createAccount extends Component {
                                             <div className="field has-text-centered">
                                                 <img src= {JIJI} width="167"/>
                                             </div>
-                                                                                                                                                                                    
+
                                             <div className = "field ">
                                                 <label className = "label"> User Name: </label>
                                                 <input name = "userName" className = "input"
@@ -45,12 +42,7 @@ class createAccount extends Component {
                                                 } placeholder = "Enter User Name"/>                                                                                                        
                                             </div>
 
-                                            <div className = "field ">
-                                                <label className = "label"> Email: </label>                                                   
-                                                <input name = "email" className = "input" type = "email"
-                                                onChange = {this.handleChange
-                                                } placeholder = "Enter Email"/>                                                                                                               
-                                            </div>
+                            
 
                                             <div className = "field ">
                                                 <label className = "label"> Password: </label>                                                    
