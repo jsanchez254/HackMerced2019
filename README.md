@@ -1,5 +1,5 @@
 # Bello
-#### Connect people via virtual notes left at locations using Google Maps API
+#### Connect with people via virtual notes using Google Maps API
 
 ![](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/774/833/datas/gallery.jpg)
 
@@ -18,7 +18,7 @@ We had to deal with the asynchronous behavior of JavaScript to make sure all dat
 ### What we learned: 
 We found Bulma as a framework to be simple, elegant, and powerful. We also learned that Google has great documentation that explains everything very clearly. We also learned how to use the Google Maps API.
 
-### What's next Bello: 
+### What's next: 
 We want to make the webapp more accessible on mobile devices such phones and tablets. We also want to fix some issues still present with the way data is fetched.
 
 ### Built With: 
